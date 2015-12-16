@@ -1,5 +1,6 @@
 import snap
 import re
+from scipy import stats
 f = open('web-Stanford.txt', 'r')
 #bajar enlace
 #https://snap.stanford.edu/data/web-Stanford.txt.gz
@@ -41,40 +42,94 @@ PRankHDirigido = snap.TIntFltH()
 PRankHNodirigido = snap.TIntFltH()
 snap.GetPageRank(G1, PRankHDirigido)
 snap.GetPageRank(G2,PRankHNodirigido)
-#item = []
+item = []
+listaParaIndicesDirigidos = []
 i=0
 f = open ("PRankHDirigido.txt", "w")
 for itema in PRankHDirigido:
 	#print itema
-	#temp =[]
-	#temp.append(PRankHDirigido[itema])
-	#temp.append(i+1)
-	#item.append(temp)
+	temp =[]
+	temp.append(PRankHDirigido[itema])
+	temp.append(i+1)
+	item.append(temp)
+	## PARA EL INDICE
+	listaParaIndicesDirigidos.append(PRankHDirigido[itema])
 	f.write(str(i+1) + " "+ str(PRankHDirigido[itema]) + "\n")
 	i=i+1
 f.close()
-#item2 = []
+item2 = []
+listaParaIndicesNODirigidos = []
 i=0
 f = open ("PRankHNodirigido.txt", "w")
 for itema in PRankHNodirigido:
 	#print itema
-	#temp =[]
-	#temp.append(PRankHNodirigido[itema])
-	#temp.append(i+1)
-	#item2.append(temp)
+	temp =[]
+	temp.append(PRankHNodirigido[itema])
+	temp.append(i+1)
+	item2.append(temp)
+	## PARA EL INDICE
+	listaParaIndicesNODirigidos.append(PRankHNodirigido[itema])
  	f.write(str(i+1) + " "+ str(PRankHNodirigido[itema]) + "\n")
 	i=i+1
 f.close()
 print "Terminado.\n"
-#print item
-#print item2
 
-#item.sort(reverse=True)
-#i=11
-#j=0
-#for valor in item:
-#	j=j+1
-#	if(j<i):
-#		print valor
-#	else:
-#		break
+tau, p_value = stats.kendalltau(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
+
+print tau, p_value
+
+
+tau, p_value = stats.spearmanr(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
+
+print tau, p_value
+
+
+item.sort(reverse=True)
+item2.sort(reverse=True)
+
+##print item
+##print item2
+
+item3 = []
+listaParaIndicesDirigidos = []
+i=0
+f = open ("PRankHDirigidoOrdenado.txt", "w")
+for itema in item:
+	#print itema
+	temp =[]
+	temp.append(itema[0])
+	temp.append(itema[1])
+	item3.append(temp)
+	listaParaIndicesDirigidos.append(itema[1])
+	f.write(str(itema[0]) + " "+ str(itema[1]) + "\n")
+	i=i+1
+f.close()
+item4 = []
+listaParaIndicesNODirigidos = []
+i=0
+f = open ("PRankHNodirigidoDesordenado.txt", "w")
+for itema in item2:
+	#print itema
+	temp =[]
+	temp.append(itema[0])
+	temp.append(itema[1])
+	item4.append(temp)
+	listaParaIndicesNODirigidos.append(itema[1])
+ 	f.write(str(itema[0]) + " "+ str(item[1]) + "\n")
+	i=i+1
+f.close()
+print "Terminado.\n"
+
+
+
+tau, p_value = stats.kendalltau(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
+
+print tau, p_value
+
+
+tau, p_value = stats.spearmanr(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
+
+print tau, p_value
+
+
+
