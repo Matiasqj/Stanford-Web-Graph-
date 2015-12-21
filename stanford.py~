@@ -76,60 +76,62 @@ print "Terminado.\n"
 
 tau, p_value = stats.kendalltau(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
 
-print tau, p_value
-
+#print tau, p_value
+print "El coeficiente de kandall es: ", tau
 
 tau, p_value = stats.spearmanr(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
 
-print tau, p_value
+#print tau, p_value
+print "El coeficiente de spearman es: ", tau
+
+
+
+##print item
+##print item2
 
 
 item.sort(reverse=True)
 item2.sort(reverse=True)
 
-##print item
-##print item2
-
 item3 = []
-listaParaIndicesDirigidos = []
+listaParaIndicesDirigidos2 = []
 i=0
 f = open ("PRankHDirigidoOrdenado.txt", "w")
 for itema in item:
-	#print itema
 	temp =[]
 	temp.append(itema[0])
 	temp.append(itema[1])
 	item3.append(temp)
-	listaParaIndicesDirigidos.append(itema[1])
+	listaParaIndicesDirigidos2.append(itema[1])
 	f.write(str(itema[0]) + " "+ str(itema[1]) + "\n")
 	i=i+1
 f.close()
 item4 = []
-listaParaIndicesNODirigidos = []
+listaParaIndicesNODirigidos2 = []
 i=0
-f = open ("PRankHNodirigidoDesordenado.txt", "w")
+f = open ("PRankHNodirigidoOrdenado.txt", "w")
 for itema in item2:
 	#print itema
 	temp =[]
 	temp.append(itema[0])
 	temp.append(itema[1])
 	item4.append(temp)
-	listaParaIndicesNODirigidos.append(itema[1])
- 	f.write(str(itema[0]) + " "+ str(item[1]) + "\n")
+	listaParaIndicesNODirigidos2.append(itema[1])
+ 	f.write(str(itema[0]) + " "+ str(itema[1]) + "\n")
 	i=i+1
 f.close()
 print "Terminado.\n"
 
 
 
-tau, p_value = stats.kendalltau(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
+tau, p_value = stats.kendalltau(listaParaIndicesDirigidos2, listaParaIndicesNODirigidos2)
 
-print tau, p_value
+print "El coeficiente de kandall es: ", tau
 
 
-tau, p_value = stats.spearmanr(listaParaIndicesDirigidos, listaParaIndicesNODirigidos)
+tau, p_value = stats.spearmanr(listaParaIndicesDirigidos2, listaParaIndicesNODirigidos2)
 
-print tau, p_value
+print "El coeficiente de spearman es: ", tau
 
 
 
